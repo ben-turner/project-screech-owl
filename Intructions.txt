@@ -1,0 +1,66 @@
+Intructions
+
+CODE	NAME	OP1		OP2		OP3		DESCRIPTION
+------------------------------------------------------------------------------------------
+0x00	TERM							Terminate execution
+0x01	STAT							Print register values and continue
+0x02	DUMP							Dump memory
+
+0x11	LSA		VAL						Literal value -> register A
+0x12	LSB		VAL						Literal value -> register B
+0x13	LSC		VAL						Literal value -> register C
+0x14	LSI		VAL						Literal value -> instruction pointer (GOTO)
+0x15	ASB								Register A value -> register B
+0x16	ASC								Register A value -> register C
+0x17	ASI								Register A value -> instruction pointer (GOTO)
+0x18	BSA								Register B value -> register A
+0x19	BSC								Register B value -> register C
+0x1A	BSI								Register B value -> instruction pointer (GOTO)
+0x1B	CSA								Register C value -> register A
+0x1C	CSB								Register C value -> register B
+0x1D	CSI								Register C value -> instruction pointer (GOTO)
+0x1E	ISA								Current instruction address -> register A
+0x1F	ISB								Current instruction address -> register B
+0x20	ISC								Current instruction address -> register C
+0x21	AMEM	ADDR					register A value -> ADDR
+0x22	BMEM	ADDR					register B value -> ADDR
+0x23	CMEM	ADDR					register C value -> ADDR
+0x24	MEML	ADDR	LEN		CHARS	Store LEN chars at ADDR
+0x25	MEMA	ADDR					Value at ADDR -> A
+0x26	MEMB	ADDR					Value at ADDR -> B
+0x27	MEMC	ADDR					Value at ADDR -> C
+0x28	BMEMA							Value at ADDR == B -> A
+0x29	CMEMA							Value at ADDR == C -> A
+0x2A	AMEMB							Value at ADDR == A -> B
+0x2B	CMEMB							Value at ADDR == C -> B
+0x2C	AMEMC							Value at ADDR == A -> C
+0x2D	BMEMC							Value at ADDR == B -> C
+
+0x30	ADD								register A + register B -> register C
+0x31	SUB								register A - register B -> register C
+0x32	MUL								register A * register B -> register C
+0x33	DIV								register A / register B -> register C
+0x34	AND								register A & register B -> register C
+0x35	OR								register A | register B -> register C
+0x36	XOR								register A ^ register B -> register C
+0x37	EQ								C = (A == B ? 0x01 : 0x00)
+0x38	NE								C = (A != B ? 0x01 : 0x00)
+0x39	LT								C = (A < B ? 0x01 : 0x00)
+0x3A	GT								C = (A > B ? 0x01 : 0x00)
+0x3B	LE								C = (A <= B ? 0x01 : 0x00)
+0x3C	GE								C = (A >= B ? 0x01 : 0x00)
+
+0x40	IFA		GOTO	ELSE			A > 0 ? GOTO -> I : ELSE
+0x41	NIFA	GOTO	ELSE			A == 0 ? GOTO -> I : ELSE
+0x42	IFB		GOTO	ELSE			A > 0 ? GOTO -> I : ELSE
+0x43	NIFB	GOTO	ELSE			A == 0 ? GOTO -> I : ELSE
+0x44	IFC		GOTO	ELSE			A > 0 ? GOTO -> I : ELSE
+0x45	NIFC	GOTO	ELSE			A == 0 ? GOTO -> I : ELSE
+
+0x50	CATA							Print char(A)
+0x51	CATB							Print char(B)
+0x52	CATC							Print char(C)
+0x53	FLUSH							Flush output buffer
+0x54	INPA							Read -> A
+0x55	INPB							Read -> B
+0x56	INPC							Read -> C
