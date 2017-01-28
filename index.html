@@ -4,7 +4,9 @@
 	<script src="runner.js"></script>
 </head>
 <body>
-<textarea id="code"></textarea>
+<textarea id="code" style="width: 50%; height: 80%;"></textarea>
+<textarea id="assembly" style="width: 50%; height: 80%;"></textarea><br>
 <button onclick="run()">Execute</button>
+<button onclick="document.getElementById('assembly').value = partialCompile(document.getElementById('code').value)">Compile</button>
 </body>
 </html>

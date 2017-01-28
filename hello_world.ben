@@ -1,7 +1,6 @@
 MEML 0x00 "Hello World"
-
 MARK 0x01
-BMEMA //14
+BMEMA
 CATA
 LSA 0x01
 ADD

@@ -239,12 +239,13 @@ function execute(data) {
 }
 
 function partialCompile(code) {
-	var buf = []
+	var buf = new Uint8Array()
 	  , marks = []
 	  , lines = code.split("\n")
 
 	for (var i = 0; i < lines.length; i++) {
-		line = lines[i].match(/^([A-Z]{2,5})/g)
+		console.log(lines[i])
+		line = lines[i].split(/\t/g)
 		switch (line[1]) {
 			case "MEML":
 				buf.push(0x24)
@@ -289,8 +290,31 @@ function partialCompile(code) {
 				break
 			case "MARK":
 				marks[parseInt(line[1])] = buf.length
+				break
+			case "GOTO":
+				buf.push(0x14) // Fallthrough
+			case "MARKVAL":
+				buf.push(["MARK", parseInt(line[2])])
+				break
 		}
 	}
+
+	for (var i = 0; i < buf.length; i++) {
+		if (typeof(buf[i]) == "array") {
+			switch (buf[i][0]) {
+				case "MARK":
+					buf[i] = marks[buf[i][1]]
+			}
+		}
+	}
+
+	var binary = ''
+	for (var i = 0; i < buf.length; i++) {
+		console.log(buf[i].toString(16))
+		binary += Strings.fromCharCode(buf[i])
+	}
+
+	return btoa(binary)
 }
 
 document.onkeypress = function(e) {
